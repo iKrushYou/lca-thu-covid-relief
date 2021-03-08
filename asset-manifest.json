@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.js": "/lca-thu-covid-relief/static/js/main.a348c2fe.chunk.js",
-    "main.js.map": "/lca-thu-covid-relief/static/js/main.a348c2fe.chunk.js.map",
+    "main.js": "/lca-thu-covid-relief/static/js/main.4fb52564.chunk.js",
+    "main.js.map": "/lca-thu-covid-relief/static/js/main.4fb52564.chunk.js.map",
     "runtime-main.js": "/lca-thu-covid-relief/static/js/runtime-main.358d88b1.js",
     "runtime-main.js.map": "/lca-thu-covid-relief/static/js/runtime-main.358d88b1.js.map",
     "static/js/2.5556a61e.chunk.js": "/lca-thu-covid-relief/static/js/2.5556a61e.chunk.js",
@@ -14,6 +14,6 @@
   "entrypoints": [
     "static/js/runtime-main.358d88b1.js",
     "static/js/2.5556a61e.chunk.js",
-    "static/js/main.a348c2fe.chunk.js"
+    "static/js/main.4fb52564.chunk.js"
   ]
 }
