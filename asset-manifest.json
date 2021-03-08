@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.js": "/static/js/main.c2770d79.chunk.js",
-    "main.js.map": "/static/js/main.c2770d79.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.bf16e986.js",
-    "runtime-main.js.map": "/static/js/runtime-main.bf16e986.js.map",
-    "static/js/2.7f4f30dc.chunk.js": "/static/js/2.7f4f30dc.chunk.js",
-    "static/js/2.7f4f30dc.chunk.js.map": "/static/js/2.7f4f30dc.chunk.js.map",
-    "index.html": "/index.html",
-    "static/js/2.7f4f30dc.chunk.js.LICENSE.txt": "/static/js/2.7f4f30dc.chunk.js.LICENSE.txt"
+    "main.js": "/lca-thu-covid-relief/static/js/main.c2770d79.chunk.js",
+    "main.js.map": "/lca-thu-covid-relief/static/js/main.c2770d79.chunk.js.map",
+    "runtime-main.js": "/lca-thu-covid-relief/static/js/runtime-main.358d88b1.js",
+    "runtime-main.js.map": "/lca-thu-covid-relief/static/js/runtime-main.358d88b1.js.map",
+    "static/js/2.7f4f30dc.chunk.js": "/lca-thu-covid-relief/static/js/2.7f4f30dc.chunk.js",
+    "static/js/2.7f4f30dc.chunk.js.map": "/lca-thu-covid-relief/static/js/2.7f4f30dc.chunk.js.map",
+    "index.html": "/lca-thu-covid-relief/index.html",
+    "static/js/2.7f4f30dc.chunk.js.LICENSE.txt": "/lca-thu-covid-relief/static/js/2.7f4f30dc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.bf16e986.js",
+    "static/js/runtime-main.358d88b1.js",
     "static/js/2.7f4f30dc.chunk.js",
     "static/js/main.c2770d79.chunk.js"
   ]
