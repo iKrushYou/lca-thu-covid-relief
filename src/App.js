@@ -4,7 +4,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import LCALogo from './LMBD-Logo-Primary-Horiz-RGB.png'
 import Papa from 'papaparse'
 import CircularProgress from "@material-ui/core/CircularProgress";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
@@ -12,6 +11,10 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import BathroomBefore from './room7-bathroom-before.jpg'
 import BathroomAfter from './room7-bathroom-after.jpg'
+import {withStyles} from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+
+const BATHROOM_COST = 18000;
 
 const donationTiers = [
     {
@@ -137,19 +140,26 @@ function App() {
                     <Typography variant={'h3'}>Theta Upsilon Zeta</Typography>
                     <Typography variant={'h2'}>COVID-19 Relief Fund</Typography>
                     <Button color={'primary'} onClick={() => setShowLetter(true)}>Letter From House Corp</Button>
-                    <Card style={{marginBottom: 20}}>
+                    <Card style={{marginBottom: 20, paddingLeft: 30, paddingRight: 30}}>
                         <CardContent>
                             <Typography variant={'h4'}><b>Time Left</b></Typography>
                             <CountdownText targetDate={new Date('2021-04-10')}/>
                         </CardContent>
                     </Card>
-                    <Typography variant={'h1'}>
-                        {isLoading ? (
-                            <CircularProgress size={48}/>
-                        ) : (
-                            `$${totalAmount}`
-                        )}
-                    </Typography>
+                    {isLoading ? (
+                        <CircularProgress size={48}/>
+                    ) : (
+                        <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                            <Typography variant={'h1'}>
+                                ${totalAmount}
+                            </Typography>
+                            <div>
+                                <BorderLinearProgress variant="determinate"
+                                                      value={totalAmount / BATHROOM_COST * 100.0}/>
+                                <Typography>Progress to Milestone ($18,000)</Typography>
+                            </div>
+                        </div>
+                    )}
                 </div>
                 <Typography variant={'h4'} gutterBottom>Donors</Typography>
                 {isLoading ? (
@@ -170,10 +180,13 @@ function App() {
                                             {data
                                                 ?.filter(donation => donation.amount < max && donation.amount >= min)
                                                 .sort((a, b) => b.amount - a.amount)
-                                                .map(({name, zeta, amount}) => (
+                                                .map(({name, zeta, amount, displayAmount}) => (
                                                     <div style={{display: 'flex'}}>
-                                                        <Typography style={{flex: 1}}>{name} {zeta ? `(${zeta})` : ''}</Typography>
-                                                        <Typography>${amount}</Typography>
+                                                        <Typography
+                                                            style={{flex: 1}}>{name} {zeta ? `(${zeta})` : ''}</Typography>
+                                                        {displayAmount === 'yes' && (
+                                                            <Typography>${amount}</Typography>
+                                                        )}
                                                     </div>
                                                 ))}
                                         </CardContent>
@@ -279,6 +292,14 @@ const CountdownText = ({targetDate}) => {
 
     useEffect(() => {
         updateCountdown()
+
+        const interval = setInterval(() => {
+            updateCountdown()
+        }, 1000)
+
+        return () => {
+            clearInterval(interval)
+        }
     }, [])
 
     function updateCountdown() {
@@ -286,10 +307,6 @@ const CountdownText = ({targetDate}) => {
 
         setTimeLeft(timeLeft)
     }
-
-    setInterval(() => {
-        updateCountdown()
-    }, 1000)
 
     return (
         <Grid container spacing={4}>
@@ -312,3 +329,18 @@ const CountdownText = ({targetDate}) => {
         </Grid>
     )
 }
+
+const BorderLinearProgress = withStyles((theme) => ({
+    root: {
+        height: 10,
+        borderRadius: 5
+    },
+    colorPrimary: {
+        backgroundColor:
+            theme.palette.grey[theme.palette.type === "light" ? 200 : 700]
+    },
+    bar: {
+        borderRadius: 5,
+        backgroundColor: "#1a90ff"
+    }
+}))(LinearProgress);

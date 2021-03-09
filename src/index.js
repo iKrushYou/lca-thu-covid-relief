@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
-import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import { ThemeProvider } from '@material-ui/core/styles';
 
 let theme = createMuiTheme();
 theme = responsiveFontSizes(theme);
