@@ -140,8 +140,8 @@ function App() {
                     <img src={LCALogo} style={{width: '100%', maxWidth: 1000}} alt={"lca logo"}/>
                     <Typography variant={'h3'}>Theta Upsilon Zeta</Typography>
                     <Typography variant={'h2'}>COVID-19 Relief Fund</Typography>
-                    <Button color={'primary'} onClick={() => setShowLetter(true)}>Letter From House Corp</Button>
-                    <Button color={'primary'} style={{fontSize: 40, marginBottom: 20}} onClick={() => setShowDonateDialog(true)}>Donate Now</Button>
+                    <Button color={'primary'} variant={'outlined'} onClick={() => setShowLetter(true)} style={{marginBottom: 15}}>Letter From House Corp</Button>
+                    <Button color={'primary'} variant={'contained'} style={{fontSize: 40, marginBottom: 20}} onClick={() => setShowDonateDialog(true)}>Donate Now</Button>
                     <Card style={{marginBottom: 20, paddingLeft: 30, paddingRight: 30}}>
                         <CardContent>
                             <Typography variant={'h4'}><b>Time Left</b></Typography>
