@@ -43,6 +43,51 @@ const donationTiers = [
     },
 ]
 
+function calculateCountdown(endDate) {
+    let diff = (Date.parse(new Date(endDate)) - Date.parse(new Date())) / 1000;
+
+    // clear countdown when date is reached
+    if (diff <= 0) return false;
+
+    const timeLeft = {
+        years: 0,
+        days: 0,
+        hours: 0,
+        min: 0,
+        sec: 0,
+        millisec: 0,
+    };
+
+    // calculate time difference between now and expected date
+    if (diff >= (365.25 * 86400)) { // 365.25 * 24 * 60 * 60
+        timeLeft.years = Math.floor(diff / (365.25 * 86400));
+        diff -= timeLeft.years * 365.25 * 86400;
+    }
+    if (diff >= 86400) { // 24 * 60 * 60
+        timeLeft.days = Math.floor(diff / 86400);
+        diff -= timeLeft.days * 86400;
+    }
+    if (diff >= 3600) { // 60 * 60
+        timeLeft.hours = Math.floor(diff / 3600);
+        diff -= timeLeft.hours * 3600;
+    }
+    if (diff >= 60) {
+        timeLeft.min = Math.floor(diff / 60);
+        diff -= timeLeft.min * 60;
+    }
+    timeLeft.sec = diff;
+
+    return timeLeft;
+}
+
+function addLeadingZeros(value) {
+    value = String(value);
+    while (value.length < 2) {
+        value = '0' + value;
+    }
+    return value;
+}
+
 function App() {
 
     const [isLoading, setIsLoading] = useState(true)
@@ -92,6 +137,12 @@ function App() {
                     <Typography variant={'h3'}>Theta Upsilon Zeta</Typography>
                     <Typography variant={'h2'}>COVID-19 Relief Fund</Typography>
                     <Button color={'primary'} onClick={() => setShowLetter(true)}>Letter From House Corp</Button>
+                    <Card style={{marginBottom: 20}}>
+                        <CardContent>
+                            <Typography variant={'h4'}><b>Time Left</b></Typography>
+                            <CountdownText targetDate={new Date('2021-04-10')}/>
+                        </CardContent>
+                    </Card>
                     <Typography variant={'h1'}>
                         {isLoading ? (
                             <CircularProgress size={48}/>
@@ -108,23 +159,27 @@ function App() {
                         {donationTiers
                             .filter(tier => tier.min >= range.min)
                             .map(({label, min, max, details, color}) => (
-                            <Grid item xs={12} md={4}>
-                                <Card style={{height: '100%'}}>
-                                    <CardContent>
-                                        <div style={{display: 'flex', alignItems: 'baseline'}}>
+                                <Grid item xs={12} md={4}>
+                                    <Card style={{height: '100%'}}>
+                                        <CardContent>
+                                            <div style={{display: 'flex', alignItems: 'baseline'}}>
                                                 <Typography variant={'h4'} style={{color, flex: 1}}>{label}</Typography>
-                                                <Typography color={'textSecondary'} style={{marginBottom: 5}}>({details})</Typography>
-                                        </div>
-                                        {data
-                                            ?.filter(donation => donation.amount < max && donation.amount >= min)
-                                            .sort((a, b) => b.amount - a.amount)
-                                            .map(({name, zeta, amount}) => (
-                                                <Typography>{name} {zeta ? `(${zeta})` : ''} - ${amount}</Typography>
-                                            ))}
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        ))}
+                                                <Typography color={'textSecondary'}
+                                                            style={{marginBottom: 5}}>({details})</Typography>
+                                            </div>
+                                            {data
+                                                ?.filter(donation => donation.amount < max && donation.amount >= min)
+                                                .sort((a, b) => b.amount - a.amount)
+                                                .map(({name, zeta, amount}) => (
+                                                    <div style={{display: 'flex'}}>
+                                                        <Typography style={{flex: 1}}>{name} {zeta ? `(${zeta})` : ''}</Typography>
+                                                        <Typography>${amount}</Typography>
+                                                    </div>
+                                                ))}
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
+                            ))}
                     </Grid>)}
             </div>
             <Dialog
@@ -219,3 +274,41 @@ function App() {
 
 export default App;
 
+const CountdownText = ({targetDate}) => {
+    const [timeLeft, setTimeLeft] = useState("")
+
+    useEffect(() => {
+        updateCountdown()
+    }, [])
+
+    function updateCountdown() {
+        const timeLeft = calculateCountdown(targetDate)
+
+        setTimeLeft(timeLeft)
+    }
+
+    setInterval(() => {
+        updateCountdown()
+    }, 1000)
+
+    return (
+        <Grid container spacing={4}>
+            <Grid item xs={3} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Typography variant={'h3'}>{timeLeft.days}</Typography>
+                <Typography>Days</Typography>
+            </Grid>
+            <Grid item xs={3} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Typography variant={'h3'}>{timeLeft.hours}</Typography>
+                <Typography>Hours</Typography>
+            </Grid>
+            <Grid item xs={3} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Typography variant={'h3'}>{timeLeft.min}</Typography>
+                <Typography>Minutes</Typography>
+            </Grid>
+            <Grid item xs={3} style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+                <Typography variant={'h3'}>{timeLeft.sec}</Typography>
+                <Typography>Seconds</Typography>
+            </Grid>
+        </Grid>
+    )
+}
