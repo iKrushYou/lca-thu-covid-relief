@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {Card, CardContent, Grid, Typography} from "@material-ui/core";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import LCALogo from './LMBD-Logo-Primary-Horiz-RGB.png'
@@ -17,7 +17,7 @@ const donationTiers = [
     {
         label: 'Gold',
         min: 300,
-        max: 9999999,
+        max: Number.MAX_SAFE_INTEGER,
         details: '$300+',
         color: '#FFD133',
     },
@@ -67,7 +67,17 @@ function App() {
         })
     }, []);
 
-    console.log({data})
+    const range = useMemo(() => {
+        let min = Number.MAX_SAFE_INTEGER;
+        let max = Number.MIN_SAFE_INTEGER;
+        for (const datum of data) {
+            min = Math.min(min, datum.amount)
+            max = Math.max(max, datum.amount)
+        }
+        return {min, max}
+    }, [data])
+
+    console.log({range})
 
     const totalAmount = data?.reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
 
@@ -95,14 +105,15 @@ function App() {
                     <LinearProgress style={{marginTop: 20}}/>
                 ) : (
                     <Grid container spacing={2}>
-                        {donationTiers.map(({label, min, max, details, color}) => (
+                        {donationTiers
+                            .filter(tier => tier.min >= range.min)
+                            .map(({label, min, max, details, color}) => (
                             <Grid item xs={12} md={4}>
                                 <Card style={{height: '100%'}}>
                                     <CardContent>
                                         <div style={{display: 'flex', alignItems: 'baseline'}}>
-                                            <Typography variant={'h3'}
-                                                        style={{marginRight: 10, color}}>{label}</Typography>
-                                            <Typography variant={'h6'}>({details})</Typography>
+                                                <Typography variant={'h4'} style={{color, flex: 1}}>{label}</Typography>
+                                                <Typography color={'textSecondary'} style={{marginBottom: 5}}>({details})</Typography>
                                         </div>
                                         {data
                                             ?.filter(donation => donation.amount < max && donation.amount >= min)
@@ -170,8 +181,8 @@ function App() {
                         <p>
                             <ul>
 
-                                <li>$50 - $99: Bronze Level Donor</li>
-                                <li>$100 - $299: Silver Level Donor</li>
+                                <li>$50 - $99: Purple Level Donor</li>
+                                <li>$100 - $299: Green Level Donor</li>
                                 <li>$300 and up: Gold Level Donor</li>
                             </ul>
                         </p>
@@ -198,14 +209,6 @@ function App() {
                         </Grid>
                     </Grid>
                 </DialogContent>
-                {/*<DialogActions>*/}
-                {/*    <Button onClick={handleClose} color="primary">*/}
-                {/*        Disagree*/}
-                {/*    </Button>*/}
-                {/*    <Button onClick={handleClose} color="primary" autoFocus>*/}
-                {/*        Agree*/}
-                {/*    </Button>*/}
-                {/*</DialogActions>*/}
             </Dialog>
         </>
 
