@@ -130,6 +130,7 @@ function App() {
     const totalAmount = data?.reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
 
     const [showLetter, setShowLetter] = useState(false)
+    const [showDonateDialog, setShowDonateDialog] = useState(false)
 
     return (
         <>
@@ -140,6 +141,7 @@ function App() {
                     <Typography variant={'h3'}>Theta Upsilon Zeta</Typography>
                     <Typography variant={'h2'}>COVID-19 Relief Fund</Typography>
                     <Button color={'primary'} onClick={() => setShowLetter(true)}>Letter From House Corp</Button>
+                    <Button color={'primary'} style={{fontSize: 40, marginBottom: 20}} onClick={() => setShowDonateDialog(true)}>Donate Now</Button>
                     <Card style={{marginBottom: 20, paddingLeft: 30, paddingRight: 30}}>
                         <CardContent>
                             <Typography variant={'h4'}><b>Time Left</b></Typography>
@@ -274,6 +276,24 @@ function App() {
                         </Grid>
                         <Grid item xs={12} md={6}>
                             <img src={BathroomAfter} alt={'Room 7 Bathroom - After'} style={{width: '100%'}}/>
+                        </Grid>
+                    </Grid>
+                </DialogContent>
+            </Dialog>
+            <Dialog
+                open={showDonateDialog}
+                onClose={() => setShowDonateDialog(false)}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">Donate</DialogTitle>
+                <DialogContent>
+                    <Grid container spacing={2} style={{margin: 20}}>
+                        <Grid item xs={6}>
+                            <a href={"https://www.paypal.com/donate?business=alexlawson1%40live.com&item_name=Theta+Upsilon+Covid+Relief&currency_code=USD"} target={"_blank"}><Button>Paypal</Button></a>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <a href={"https://venmo.com/Alex-Lawson-6"} target={"_blank"}><Button>Venmo</Button></a>
                         </Grid>
                     </Grid>
                 </DialogContent>
