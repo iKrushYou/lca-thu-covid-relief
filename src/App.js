@@ -13,6 +13,7 @@ import BathroomBefore from './room7-bathroom-before.jpg'
 import BathroomAfter from './room7-bathroom-after.jpg'
 import {withStyles} from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const BATHROOM_COST = 18000;
 
@@ -91,6 +92,14 @@ function addLeadingZeros(value) {
     return value;
 }
 
+function formatMoney(number) {
+    return number.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+}
+
+function formatPct(decimal) {
+    return parseFloat(decimal * 100.0).toFixed(2)+"%"
+}
+
 function App() {
 
     const [isLoading, setIsLoading] = useState(true)
@@ -127,10 +136,13 @@ function App() {
 
     console.log({range})
 
+    const goalAmount = 18000;
     const totalAmount = data?.reduce((previousValue, currentValue) => previousValue + currentValue.amount, 0)
 
     const [showLetter, setShowLetter] = useState(false)
     const [showDonateDialog, setShowDonateDialog] = useState(false)
+    
+    const progressPct = totalAmount / goalAmount;
 
     return (
         <>
@@ -153,13 +165,16 @@ function App() {
                     ) : (
                         <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                             <Typography variant={'h1'}>
-                                ${totalAmount}
+                                {formatMoney(totalAmount)}
                             </Typography>
-                            <div>
+                            <Typography>Raised of {formatMoney(goalAmount)}</Typography>
+                            {/*<div style={{width: '100%'}}>*/}
+                            <Tooltip title={formatPct(progressPct)}>
                                 <BorderLinearProgress variant="determinate"
-                                                      value={totalAmount / BATHROOM_COST * 100.0}/>
-                                <Typography>Progress to Milestone ($18,000)</Typography>
-                            </div>
+                                                      value={totalAmount / BATHROOM_COST * 100.0} style={{width: '100%', marginTop: 20, marginBottom: 10}} />
+                            </Tooltip>
+                            {/*</div>*/}
+                            {/*    <Typography>{formatPct(progressPct)} to {formatMoney(goalAmount)}</Typography>*/}
                         </div>
                     )}
                 </div>
