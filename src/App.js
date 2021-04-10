@@ -157,7 +157,7 @@ function App() {
                     <Card style={{marginBottom: 20, paddingLeft: 30, paddingRight: 30}}>
                         <CardContent>
                             <Typography variant={'h4'}><b>Time Left</b></Typography>
-                            <CountdownText targetDate={new Date('2021-04-10')}/>
+                            <CountdownText targetDate={new Date('2021-05-02')}/>
                         </CardContent>
                     </Card>
                     {isLoading ? (
