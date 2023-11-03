@@ -1,19 +1,17 @@
 {
   "files": {
-    "main.js": "/lca-thu-covid-relief/static/js/main.734c6b58.chunk.js",
-    "main.js.map": "/lca-thu-covid-relief/static/js/main.734c6b58.chunk.js.map",
+    "main.js": "/lca-thu-covid-relief/static/js/main.a2fbc3dc.chunk.js",
+    "main.js.map": "/lca-thu-covid-relief/static/js/main.a2fbc3dc.chunk.js.map",
     "runtime-main.js": "/lca-thu-covid-relief/static/js/runtime-main.358d88b1.js",
     "runtime-main.js.map": "/lca-thu-covid-relief/static/js/runtime-main.358d88b1.js.map",
-    "static/js/2.33c68d5a.chunk.js": "/lca-thu-covid-relief/static/js/2.33c68d5a.chunk.js",
-    "static/js/2.33c68d5a.chunk.js.map": "/lca-thu-covid-relief/static/js/2.33c68d5a.chunk.js.map",
+    "static/js/2.971d1c82.chunk.js": "/lca-thu-covid-relief/static/js/2.971d1c82.chunk.js",
+    "static/js/2.971d1c82.chunk.js.map": "/lca-thu-covid-relief/static/js/2.971d1c82.chunk.js.map",
     "index.html": "/lca-thu-covid-relief/index.html",
-    "static/js/2.33c68d5a.chunk.js.LICENSE.txt": "/lca-thu-covid-relief/static/js/2.33c68d5a.chunk.js.LICENSE.txt",
-    "static/media/room7-bathroom-after.ea4e0f1a.jpg": "/lca-thu-covid-relief/static/media/room7-bathroom-after.ea4e0f1a.jpg",
-    "static/media/room7-bathroom-before.50b00403.jpg": "/lca-thu-covid-relief/static/media/room7-bathroom-before.50b00403.jpg"
+    "static/js/2.971d1c82.chunk.js.LICENSE.txt": "/lca-thu-covid-relief/static/js/2.971d1c82.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.358d88b1.js",
-    "static/js/2.33c68d5a.chunk.js",
-    "static/js/main.734c6b58.chunk.js"
+    "static/js/2.971d1c82.chunk.js",
+    "static/js/main.a2fbc3dc.chunk.js"
   ]
 }
